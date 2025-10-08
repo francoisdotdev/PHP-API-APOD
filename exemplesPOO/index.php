@@ -11,9 +11,9 @@ $response = $client->request('GET', 'https://api.nasa.gov/planetary/apod?api_key
 
 $content = $response->getContent();
 
-//parse le json en objet
+//?parse le json en objet
 $arrayDataClass = json_decode($content);
-//pour l'objet
+//?pour l'objet
 echo $arrayData->title;
 
 //parse le json en array
