@@ -1,8 +1,13 @@
 <?php
+namespace App\Models;
+
+use App\Config\Database;
+use PDO;
+
 class UserRepository
 {
     private PDO $conn;
-    private string $table = 'usersdb';
+    private string $table = 'users';
 
     public function __construct()
     {
@@ -25,7 +30,7 @@ class UserRepository
 
     public function create(string $username, string $email, string $password, string $media_object): bool
     {
-        $stmt = $this->conn->prepare("INSERT INTO {$this->table} (username, email, password, media_object) VALUES (?, ?, ?, ?");
+        $stmt = $this->conn->prepare("INSERT INTO {$this->table} (username, email, password, media_object) VALUES (?, ?, ?, ?)");
         return $stmt->execute([$username, $email, $password, $media_object]);
     }
 

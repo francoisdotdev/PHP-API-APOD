@@ -1,4 +1,6 @@
 <?php
+namespace App\Models;
+use DateTime;
 
 class User
 {
@@ -10,7 +12,7 @@ class User
     private $created_at;
     private $last_connection;
 
-    public function __construct(string $username, string $email, string $password, string $media_object)
+    public function __construct(string $username, string $email, string $password, ?string $media_object = null)
     {
         $timeNow = new DateTime();
         $formateDate = $timeNow->format('l, F j, Y H:i:s');

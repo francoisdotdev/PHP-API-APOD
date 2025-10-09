@@ -6,7 +6,7 @@ class Database
 {
     private $host = '127.0.0.1';
     private $username = 'root';
-    private $dbname = 'usersdb';
+    private $dbname = 'phpcrud';
     private $password = 'root';
     private $pdo;
 
@@ -19,7 +19,6 @@ class Database
                 $this->password,
                 [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
             );
-            echo "Connexion réussie ! <br>";
         } catch (PDOException $e) {
             echo "Problème de connexion ! <br>";
             die('Erreur DB : ' . $e->getMessage());
@@ -32,6 +31,4 @@ class Database
     }
 
 }
-//$pdo = new Database();
-
 ?>
