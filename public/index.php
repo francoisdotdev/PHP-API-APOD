@@ -1,7 +1,11 @@
 <?php
 
-use App\Models\UserRepository;
 require __DIR__ . '/../vendor/autoload.php';
+use App\Models\UserRepository;
+
+use App\Auth\Auth;
+
+Auth::requireLogin();
 
 $repository = new UserRepository();
 $users = $repository->getAll();

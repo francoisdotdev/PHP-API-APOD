@@ -2,7 +2,12 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use App\Models\User;
+
 use App\Models\UserRepository;
+
+use App\Auth\Auth;
+
+Auth::requireLogin();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';

@@ -28,16 +28,35 @@ class UserRepository
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getUserEmail(string $email): array
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM {$this->table} WHERE email = ?");
+        $stmt->execute([$email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function create(string $username, string $email, string $password, string $media_object): bool
     {
         $stmt = $this->conn->prepare("INSERT INTO {$this->table} (username, email, password, media_object) VALUES (?, ?, ?, ?)");
         return $stmt->execute([$username, $email, $password, $media_object]);
     }
 
-    public function update(int $id, string $username, string $email, string $password, string $media_object): bool
+    public function update(int $id, string $username, string $email, ?string $password = null, ?string $media_object = null)
     {
-        $stmt = $this->conn->prepare("UPDATE {$this->table} SET username = ?, email = ?, password = ?, media_object = ? WHERE id = ?");
-        return $stmt->execute([$username, $email, $password, $media_object, $id]);
+        if (empty($password) && empty($media_object)) {
+            $stmt = $this->conn->prepare("UPDATE {$this->table} SET username = ?, email = ? WHERE id = ?");
+            return $stmt->execute([$username, $email, $id]);
+        } elseif (empty($password) && !empty($media_object)) {
+            $stmt = $this->conn->prepare("UPDATE {$this->table} SET username = ?, email = ?, media_object = ? WHERE id = ?");
+            return $stmt->execute([$username, $email, $media_object, $id]);
+        } elseif (!empty($password) && empty($media_object)) {
+            $stmt = $this->conn->prepare("UPDATE {$this->table} SET username = ?, email = ?, password = ? WHERE id = ?");
+            return $stmt->execute([$username, $email, $password, $id]);
+        } else {
+            $stmt = $this->conn->prepare("UPDATE {$this->table} SET username = ?, email = ?, password = ?, media_object = ? WHERE id = ?");
+            return $stmt->execute([$username, $email, $password, $media_object, $id]);
+        }
+
     }
 
     public function delete(int $id): bool

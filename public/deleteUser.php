@@ -3,6 +3,10 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use App\Models\UserRepository;
 
+use App\Auth\Auth;
+
+Auth::requireLogin();
+
 if (!isset($_GET['id'])) {
     exit("User ID missing");
 }

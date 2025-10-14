@@ -3,6 +3,10 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use App\Models\UserRepository;
 
+use App\Auth\Auth;
+
+Auth::requireLogin();
+
 $repository = new UserRepository();
 
 $id = isset($_GET['id']) ? $_GET['id'] : (isset($_POST['id']) ? $_POST['id'] : 0);
