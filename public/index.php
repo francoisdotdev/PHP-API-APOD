@@ -59,6 +59,10 @@ $users = $repository->getAll();
             </tr>
         <?php endforeach; ?>
     </table>
+
+    <form action="logout.php" method="POST">
+        <button type="submit">logout</button>
+    </form>
 </body>
 
 </html>
